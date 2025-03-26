@@ -10,13 +10,16 @@ window.columnconfigure(2, weight=1, minsize=100)
 window.rowconfigure(2, weight=1, minsize=100)
 
 def button_click_1_creare_DB():
-    nome_database = entry_1_DB_nome.get()
+    nome_database = entry_create_DB_nome.get()
     creare_DATABASE(nome_database)
-    entry_1_DB_nome.delete(0, tk.END)
+    entry_create_DB_nome.delete(0, tk.END)
     lbl_db_creato["text"] = "DATABASE CREATO!"
 
 def button_click_2_cancellare_DB():
-    delete_DATABASE()
+    nome_database = entry_delete_DB_nome.get()
+    delete_DATABASE(nome_database)
+    entry_delete_DB_nome.delete(0, tk.END)
+    lbl_db_eliminato["text"] = "DATABASE ELIMINATO!"
 
 frame1_1 = tk.Frame(master=window, borderwidth=15, relief=tk.GROOVE)
 frame1_1.grid(row=1, column=1)
@@ -37,7 +40,7 @@ button_1 = tk.Button( # widget
                 )
 button_1.pack()
 
-entry_1_DB_nome = tk.Entry(
+entry_create_DB_nome = tk.Entry(
                             fg="white",
                             bg="black",
                             font="Courier 25 bold",
@@ -51,7 +54,7 @@ lbl_db_creato = tk.Label(
                         font="Courier 25 bold",
                         master=frame1_1
                         )
-entry_1_DB_nome.pack()
+entry_create_DB_nome.pack()
 lbl_db_creato.pack()
 
 frame1_2 = tk.Frame(master=window, borderwidth=15, relief=tk.GROOVE)
@@ -72,5 +75,22 @@ button_2 = tk.Button( # widget
                 command=button_click_2_cancellare_DB
                 )
 button_2.pack()
+
+entry_delete_DB_nome = tk.Entry(
+                            fg="white",
+                            bg="black",
+                            font="Courier 25 bold",
+                            width=50,
+                            master=frame1_2
+                            )
+
+lbl_db_eliminato = tk.Label(
+                        text="",
+                        fg="red",
+                        font="Courier 25 bold",
+                        master=frame1_2
+                        )
+entry_delete_DB_nome.pack()
+lbl_db_eliminato.pack()
 
 window.mainloop()
