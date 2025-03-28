@@ -2,24 +2,46 @@ import tkinter as tk
 from delete_database import delete_DATABASE
 from database_population import creare_DATABASE
 
+# last_created = ""
+
 window = tk.Tk()
 
-window.columnconfigure(1, weight=2, minsize=100)
-window.rowconfigure(1, weight=2, minsize=100)
+window.columnconfigure(1, weight=1, minsize=100)
+window.rowconfigure(1, weight=1, minsize=100)
 window.columnconfigure(2, weight=1, minsize=100)
 window.rowconfigure(2, weight=1, minsize=100)
 
 def button_click_1_creare_DB():
     nome_database = entry_create_DB_nome.get()
-    creare_DATABASE(nome_database)
+    # last_created = nome_database
+    errore = str(creare_DATABASE(nome_database))
     entry_create_DB_nome.delete(0, tk.END)
-    lbl_db_creato["text"] = "DATABASE CREATO!"
+    if errore != "None":
+        lbl_db_creato["fg"] = "red"
+        lbl_db_creato["font"]="Courier 10 bold"
+        lbl_db_creato["text"] = f"ERRORE:\n{errore}"
+        del errore
+    else:
+        lbl_db_creato["fg"] = "green"
+        lbl_db_eliminato["font"]="Courier 25 bold"
+        lbl_db_creato["text"] = f"DATABASE CREATO:\n{nome_database}"
+    # return last_created
 
 def button_click_2_cancellare_DB():
+    # last_created = button_click_1_creare_DB()
     nome_database = entry_delete_DB_nome.get()
-    delete_DATABASE(nome_database)
+    # if last_created != "":
+    #     delete_DATABASE(last_created)
+    # else:
+    errore = str(delete_DATABASE(nome_database))
     entry_delete_DB_nome.delete(0, tk.END)
-    lbl_db_eliminato["text"] = "DATABASE ELIMINATO!"
+    if errore != "None":
+        lbl_db_eliminato["font"]="Courier 10"
+        lbl_db_eliminato["text"] = f"ERRORE:\n{errore}"
+        del errore
+    else:
+        lbl_db_eliminato["font"]="Courier 25 bold"
+        lbl_db_eliminato["text"] = f"DATABASE ELIMINATO:\n{nome_database}"
 
 frame1_1 = tk.Frame(master=window, borderwidth=15, relief=tk.GROOVE)
 frame1_1.grid(row=1, column=1)
@@ -64,7 +86,7 @@ label1_2.pack()
 
 button_2 = tk.Button( # widget
                 text="ELIMINA DB",
-                font=("Courier 10 bold"),
+                font=("Courier 25 bold"),
                 background="black", # anche bg
                 foreground="#53a8bd", # anche fg
                 width=10, # caratteri di larghezza

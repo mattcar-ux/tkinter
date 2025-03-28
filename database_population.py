@@ -59,6 +59,7 @@ def creare_DATABASE(database_nome):
                 cursor.execute(query_create_db)
     except Error as e:
         print(e)
+        return e
 
     #Popolare tabelle del DATABASE
     try: 

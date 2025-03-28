@@ -14,3 +14,4 @@ def delete_DATABASE(database_nome):
                 cursor.execute(query_delete_db)
     except Error as e:
         print(e)
+        return e
